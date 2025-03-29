@@ -453,7 +453,7 @@
                 ${isRecording || waitingForResponse ? 'disabled' : ''}
                 class="chat-widget-textarea"
                 rows="2"
-              >${isTranscribing ? '...' : ''}</textarea>
+              ></textarea>
               <button 
                 class="chat-widget-send-button" 
                 aria-label="Send message"
@@ -658,6 +658,8 @@
           let finalTranscript = '';
           let interimTranscript = '';
           
+          let currentTranscribedText = '';
+          
           recognition.onresult = (event) => {
             interimTranscript = '';
             
@@ -671,12 +673,16 @@
               }
             }
             
-            // Show current transcription in the textarea field
+            // Store the current transcribed text
+            currentTranscribedText = finalTranscript || interimTranscript;
+            
+            // Force re-render to update the UI
+            renderWidget();
+            
+            // After rendering, update the textarea with the transcribed text
             const textarea = container.querySelector('.chat-widget-textarea');
             if (textarea) {
-              textarea.value = finalTranscript || interimTranscript;
-              // Force re-render to show the text while recording
-              renderWidget();
+              textarea.value = currentTranscribedText;
             }
           };
           
