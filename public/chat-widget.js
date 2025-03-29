@@ -46,20 +46,20 @@
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: #1e88e5;
+    background-color: #2e7d32;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
     transition: all 0.2s ease;
     z-index: 9999;
   }
 
   .chat-widget-bubble:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(30, 136, 229, 0.4);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.4);
   }
 
   .chat-widget-bubble-icon {
@@ -74,7 +74,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px;
-    background-color: #1e88e5;
+    background-color: #2e7d32;
     color: white;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
@@ -150,7 +150,7 @@
     width: 32px;
     height: 32px;
     border-radius: 4px;
-    background-color: #1e88e5;
+    background-color: #2e7d32;
     color: white;
     display: flex;
     align-items: center;
@@ -497,7 +497,7 @@
             const sendButton = container.querySelector('.chat-widget-send-button');
             if (sendButton) {
               sendButton.disabled = !textarea.value.trim() || isRecording || waitingForResponse;
-              sendButton.style.color = textarea.value.trim() && !isRecording && !waitingForResponse ? '#1e88e5' : '#ababab';
+              sendButton.style.color = textarea.value.trim() && !isRecording && !waitingForResponse ? '#2e7d32' : '#ababab';
             }
           });
         }
