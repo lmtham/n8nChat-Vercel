@@ -79,7 +79,7 @@ const Index = () => {
           To add this chat widget to your website, copy the following code snippet and paste it before the closing &lt;/body&gt; tag:
         </p>
         <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm mb-4">
-          {`<script src="${currentDomain}/chat-widget.js"></script>
+          {`<script src="${currentDomain}/chat-widget.js?v=1.0.1"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function() {
     initChatWidget('YOUR_N8N_WEBHOOK_URL');

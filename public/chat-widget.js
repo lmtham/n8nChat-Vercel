@@ -12,9 +12,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 320px;
+    width: 384px; /* Increased by 20% from 320px */
     max-width: 90vw;
-    height: 450px;
+    height: 540px; /* Increased by 20% from 450px */
     max-height: 70vh;
     display: flex;
     flex-direction: column;
@@ -191,6 +191,25 @@
     display: flex;
     align-items: center;
     padding: 4px 8px;
+    min-height: 56px;
+  }
+
+  .chat-widget-textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    background-color: transparent;
+    font-size: 14px;
+    min-height: 40px;
+    max-height: 80px;
+    resize: none;
+    overflow-y: auto;
+    white-space: normal;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    font-family: inherit;
+    overflow-anchor: none;
   }
 
   .chat-widget-input input {
@@ -211,14 +230,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: none;
     background-color: #f5f5f5;
     color: #ababab;
     cursor: pointer;
     transition: all 0.2s ease;
+    margin-left: 4px;
   }
 
   .chat-widget-send-button:hover {
@@ -234,8 +254,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: none;
     background-color: transparent;
@@ -263,10 +283,11 @@
   .chat-widget-footer {
     padding: 10px 16px;
     text-align: center;
-    color: #ababab;
-    font-size: 12px;
+    color: transparent;
+    font-size: 0;
     background-color: white;
     border-top: 1px solid #f0f0f0;
+    height: 10px;
   }
 
   @keyframes pulse {
@@ -427,12 +448,12 @@
               >
                 ${isRecording ? icons.micOff : icons.mic}
               </button>
-              <input 
-                type="text" 
+              <textarea 
                 placeholder="${waitingForResponse ? 'Waiting for response...' : 'Type your message...'}" 
                 ${isRecording || waitingForResponse ? 'disabled' : ''}
-                value="${isTranscribing ? '...' : ''}"
-              />
+                class="chat-widget-textarea"
+                rows="2"
+              >${isTranscribing ? '...' : ''}</textarea>
               <button 
                 class="chat-widget-send-button" 
                 aria-label="Send message"
@@ -458,25 +479,25 @@
         container.querySelector('.chat-widget-control-icon:last-child').addEventListener('click', closeWidget);
         
         // Input field
-        const input = container.querySelector('.chat-widget-input input');
-        if (input) {
-          input.addEventListener('keydown', (e) => {
+        const textarea = container.querySelector('.chat-widget-textarea');
+        if (textarea) {
+          textarea.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault();
-              const text = input.value.trim();
+              const text = textarea.value.trim();
               if (text && !isRecording && !waitingForResponse) {
                 sendMessage(text);
-                input.value = '';
+                textarea.value = '';
               }
             }
           });
           
           // Update send button state on input change
-          input.addEventListener('input', () => {
+          textarea.addEventListener('input', () => {
             const sendButton = container.querySelector('.chat-widget-send-button');
             if (sendButton) {
-              sendButton.disabled = !input.value.trim() || isRecording || waitingForResponse;
-              sendButton.style.color = input.value.trim() && !isRecording && !waitingForResponse ? '#1e88e5' : '#ababab';
+              sendButton.disabled = !textarea.value.trim() || isRecording || waitingForResponse;
+              sendButton.style.color = textarea.value.trim() && !isRecording && !waitingForResponse ? '#1e88e5' : '#ababab';
             }
           });
         }
@@ -485,10 +506,10 @@
         const sendButton = container.querySelector('.chat-widget-send-button');
         if (sendButton) {
           sendButton.addEventListener('click', () => {
-            const text = input.value.trim();
+            const text = textarea.value.trim();
             if (text && !isRecording && !waitingForResponse) {
               sendMessage(text);
-              input.value = '';
+              textarea.value = '';
               sendButton.disabled = true;
               sendButton.style.color = '#ababab';
             }
@@ -837,6 +858,8 @@
     if (webhook) {
       n8nWebhookURL = webhook;
     }
+    // Add a version attribute to the widget to help with cache busting
+    window.chatWidgetVersion = '1.0.1';
     createChatWidgetDOM();
   };
   
