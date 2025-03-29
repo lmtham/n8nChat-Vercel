@@ -457,7 +457,7 @@
               <button 
                 class="chat-widget-send-button" 
                 aria-label="Send message"
-                ${!document.querySelector('.chat-widget-input input')?.value?.trim() || isRecording || waitingForResponse ? 'disabled' : ''}
+                ${!document.querySelector('.chat-widget-textarea')?.value?.trim() || isRecording || waitingForResponse ? 'disabled' : ''}
               >
                 ${icons.send}
               </button>
@@ -671,10 +671,12 @@
               }
             }
             
-            // Show current transcription in the input field
-            const input = container.querySelector('.chat-widget-input input');
-            if (input) {
-              input.value = finalTranscript || interimTranscript;
+            // Show current transcription in the textarea field
+            const textarea = container.querySelector('.chat-widget-textarea');
+            if (textarea) {
+              textarea.value = finalTranscript || interimTranscript;
+              // Force re-render to show the text while recording
+              renderWidget();
             }
           };
           
