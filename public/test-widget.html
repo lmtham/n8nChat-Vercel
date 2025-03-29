@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with Taylor</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0 0 1rem;
+      animation: slideDown 1s ease-out;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      color: #fff;
+      background: #ff7eb3;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <h1>Meet Taylor, Your Virtual Assistant</h1>
+      <p>Quick, helpful, and always here to chat. Ask Taylor anything!</p>
+      <button class="cta-button" onclick="startChat()">Start Chat</button>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 TalentClik. All rights reserved.</footer>
+
+  <!-- Load the chat widget script -->
+  <script src="./chat-widget.js"></script>
+  
+  <!-- Initialize the chat widget with your webhook URL -->
+  <script>
+    function startChat() {
+      // Initialize the chat widget when the button is clicked
+      initChatWidget('https://n8ncloud2.onrender.com/webhook/2f82c208-de56-4c9d-8028-c5bfbe4f1428/chat');
+    }
+  </script>
+</body>
+</html>

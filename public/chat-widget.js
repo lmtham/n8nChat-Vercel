@@ -818,10 +818,6 @@
     createChatWidgetDOM();
   };
   
-  // Auto initialize if the script is loaded directly
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(createChatWidgetDOM, 1);
-  } else {
-    document.addEventListener('DOMContentLoaded', createChatWidgetDOM);
-  }
+  // We'll rely on explicit initialization via initChatWidget
+  // and not auto-initialize to prevent conflicts
 })();
