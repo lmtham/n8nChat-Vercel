@@ -325,6 +325,25 @@
     let speechRecognition = null;
     const botName = "Taylor";
     
+    // Function to reset the chat session
+    function resetSession() {
+      // Generate a new session ID
+      sessionId = crypto.randomUUID();
+      
+      // Clear all messages except the welcome message
+      messages.length = 0;
+      
+      // Add the initial welcome message back
+      messages.push({
+        content: "Welcome 👋! How can I help you today?",
+        isUser: false,
+        timestamp: new Date()
+      });
+      
+      // Re-render the widget
+      renderWidget();
+    }
+    
     // Add the initial message from the bot
     messages.push({
       content: "Welcome 👋! How can I help you today?",
@@ -432,6 +451,9 @@
       
       // Add event listeners after rendering
       if (!isMinimized) {
+        // Refresh button
+        container.querySelector('.chat-widget-control-icon:first-child').addEventListener('click', resetSession);
+        
         // Close button
         container.querySelector('.chat-widget-control-icon:last-child').addEventListener('click', closeWidget);
         
