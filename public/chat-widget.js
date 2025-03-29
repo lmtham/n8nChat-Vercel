@@ -683,6 +683,8 @@
             const textarea = container.querySelector('.chat-widget-textarea');
             if (textarea) {
               textarea.value = currentTranscribedText;
+              // Auto-scroll the textarea to show the latest text
+              textarea.scrollTop = textarea.scrollHeight;
             }
           };
           
